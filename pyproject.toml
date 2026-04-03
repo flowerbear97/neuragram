@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "engram-memory"
+name = "neuragram"
 version = "1.0.0"
 description = "A lightweight, standalone, framework-agnostic agent memory library — the SQLite of agent memory"
 readme = "README.md"
@@ -53,17 +53,17 @@ dev = [
     "mypy>=1.0",
     "coverage>=7.0",
 ]
-all = ["engram-memory[local,openai,ollama,mcp,api,langchain,llamaindex,telemetry]"]
+all = ["neuragram[local,openai,ollama,mcp,api,langchain,llamaindex,telemetry]"]
 
 [project.scripts]
 engram-mcp = "engram.server.mcp:main"
 engram-api = "engram.server.api:main"
 
 [project.urls]
-Homepage = "https://github.com/flowerbear97/engram-memory"
-Repository = "https://github.com/flowerbear97/engram-memory"
-Documentation = "https://github.com/flowerbear97/engram-memory#readme"
-Issues = "https://github.com/flowerbear97/engram-memory/issues"
+Homepage = "https://github.com/flowerbear97/neuragram"
+Repository = "https://github.com/flowerbear97/neuragram"
+Documentation = "https://github.com/flowerbear97/neuragram#readme"
+Issues = "https://github.com/flowerbear97/neuragram/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/engram"]

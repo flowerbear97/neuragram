@@ -98,7 +98,7 @@ class BaseLLMProvider(ABC):
 class OpenAILLMProvider(BaseLLMProvider):
     """LLM provider using OpenAI Chat Completions API.
 
-    Requires: pip install engram-memory[openai]
+    Requires: pip install neuragram[openai]
     """
 
     def __init__(
@@ -112,7 +112,7 @@ class OpenAILLMProvider(BaseLLMProvider):
         except ImportError as exc:
             raise BackendNotAvailableError(
                 "openai",
-                "openai package not installed. Run: pip install engram-memory[openai]",
+                "openai package not installed. Run: pip install neuragram[openai]",
             ) from exc
 
         from openai import AsyncOpenAI
@@ -157,7 +157,7 @@ class OpenAILLMProvider(BaseLLMProvider):
 class OllamaLLMProvider(BaseLLMProvider):
     """LLM provider using local Ollama inference.
 
-    Requires: pip install engram-memory[ollama]
+    Requires: pip install neuragram[ollama]
     """
 
     def __init__(
@@ -170,7 +170,7 @@ class OllamaLLMProvider(BaseLLMProvider):
         except ImportError as exc:
             raise BackendNotAvailableError(
                 "ollama",
-                "ollama package not installed. Run: pip install engram-memory[ollama]",
+                "ollama package not installed. Run: pip install neuragram[ollama]",
             ) from exc
 
         from ollama import AsyncClient

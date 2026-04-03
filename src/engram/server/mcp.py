@@ -22,7 +22,7 @@ Usage::
     server = create_mcp_server(db_path="./memory.db")
     server.run()
 
-Requires: pip install engram-memory[mcp]
+Requires: pip install neuragram[mcp]
 """
 
 from __future__ import annotations
@@ -58,7 +58,7 @@ def create_mcp_server(
         from mcp.server.fastmcp import FastMCP
     except ImportError as exc:
         raise ImportError(
-            "MCP SDK not installed. Run: pip install engram-memory[mcp]"
+            "MCP SDK not installed. Run: pip install neuragram[mcp]"
         ) from exc
 
     from engram.client import AgentMemory

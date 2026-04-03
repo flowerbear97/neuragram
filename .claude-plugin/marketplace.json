@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "engram",
-  "description": "Lightweight, framework-agnostic memory layer for AI agents — pip install engram-memory. Hybrid search, smart classification, conflict detection, zero external dependencies",
+  "description": "Lightweight, framework-agnostic memory layer for AI agents — pip install neuragram. Hybrid search, smart classification, conflict detection, zero external dependencies",
   "owner": {
     "name": "Engram Team",
     "email": "upbeat_2026@qq.com"
@@ -16,7 +16,7 @@
       },
       "source": "./src/engram/server/mcp.py",
       "category": "productivity",
-      "homepage": "https://github.com/flowerbear97/engram-memory"
+      "homepage": "https://github.com/flowerbear97/neuragram"
     }
   ]
 }

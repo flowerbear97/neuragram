@@ -5,7 +5,7 @@
 轻量级、框架无关的 AI Agent 记忆层。基于 SQLite + sqlite-vec + FTS5 构建，无需外部服务。
 
 ```bash
-pip install engram-memory
+pip install neuragram
 ```
 
 ```python
@@ -22,7 +22,7 @@ mem.close()
 
 | | Engram | Mem0 | Letta | Graphiti |
 |---|---|---|---|---|
-| 安装方式 | `pip install engram-memory` | `pip install` | Docker + Server | pip + Neo4j |
+| 安装方式 | `pip install neuragram` | `pip install` | Docker + Server | pip + Neo4j |
 | 外部依赖 | 无 | 向量数据库 + LLM | PG + Server + LLM | 图数据库 + LLM |
 | 框架锁定 | 无 | 无 | Letta 运行时 | 无 |
 | 记忆生命周期 | 内置 | 无 | Agent 自管理 | 部分 |
@@ -95,11 +95,11 @@ ids = mem.smart_remember("用户更喜欢 Python 而不是 JavaScript")
 
 ```bash
 # 方式一：从 Claude Code 插件市场安装
-claude plugin marketplace add flowerbear97/engram-memory
+claude plugin marketplace add flowerbear97/neuragram
 claude plugin install engram
 
 # 方式二：手动 MCP 配置
-pip install engram-memory[mcp]
+pip install neuragram[mcp]
 claude mcp add engram -- engram-mcp --db-path ./memory.db
 
 # 方式三：启用 OpenAI 嵌入，获得混合搜索能力
@@ -175,15 +175,15 @@ await worker.stop()
 ## 安装
 
 ```bash
-pip install engram-memory              # 核心
-pip install engram-memory[openai]      # + OpenAI 嵌入
-pip install engram-memory[local]       # + sentence-transformers
-pip install engram-memory[mcp]         # + MCP 服务器
-pip install engram-memory[api]         # + REST API (FastAPI)
-pip install engram-memory[langchain]   # + LangChain 适配器
-pip install engram-memory[llamaindex]  # + LlamaIndex 适配器
-pip install engram-memory[telemetry]   # + OpenTelemetry
-pip install engram-memory[all]         # 全部
+pip install neuragram              # 核心
+pip install neuragram[openai]      # + OpenAI 嵌入
+pip install neuragram[local]       # + sentence-transformers
+pip install neuragram[mcp]         # + MCP 服务器
+pip install neuragram[api]         # + REST API (FastAPI)
+pip install neuragram[langchain]   # + LangChain 适配器
+pip install neuragram[llamaindex]  # + LlamaIndex 适配器
+pip install neuragram[telemetry]   # + OpenTelemetry
+pip install neuragram[all]         # 全部
 ```
 
 ## 架构

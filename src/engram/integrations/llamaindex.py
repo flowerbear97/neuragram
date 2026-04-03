@@ -16,7 +16,7 @@ Usage::
     # Store a new interaction
     memory.put("User prefers concise answers")
 
-Requires: pip install engram-memory[llamaindex]
+Requires: pip install neuragram[llamaindex]
 """
 
 from __future__ import annotations

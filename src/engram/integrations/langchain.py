@@ -14,7 +14,7 @@ Usage::
     from langchain.chains import ConversationChain
     chain = ConversationChain(memory=memory, llm=my_llm)
 
-Requires: pip install engram-memory[langchain]
+Requires: pip install neuragram[langchain]
 """
 
 from __future__ import annotations

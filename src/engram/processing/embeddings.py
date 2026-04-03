@@ -54,7 +54,7 @@ class NullEmbeddingProvider(BaseEmbeddingProvider):
 class LocalEmbeddingProvider(BaseEmbeddingProvider):
     """Offline embedding via sentence-transformers.
 
-    Requires: pip install engram-memory[local]
+    Requires: pip install neuragram[local]
     """
 
     def __init__(
@@ -67,7 +67,7 @@ class LocalEmbeddingProvider(BaseEmbeddingProvider):
         except ImportError as exc:
             raise BackendNotAvailableError(
                 "local",
-                "sentence-transformers not installed. Run: pip install engram-memory[local]",
+                "sentence-transformers not installed. Run: pip install neuragram[local]",
             ) from exc
 
         self._model = SentenceTransformer(model_name, device=device)
@@ -95,7 +95,7 @@ class LocalEmbeddingProvider(BaseEmbeddingProvider):
 class OpenAIEmbeddingProvider(BaseEmbeddingProvider):
     """Embedding via OpenAI API.
 
-    Requires: pip install engram-memory[openai]
+    Requires: pip install neuragram[openai]
     """
 
     def __init__(
@@ -109,7 +109,7 @@ class OpenAIEmbeddingProvider(BaseEmbeddingProvider):
         except ImportError as exc:
             raise BackendNotAvailableError(
                 "openai",
-                "openai package not installed. Run: pip install engram-memory[openai]",
+                "openai package not installed. Run: pip install neuragram[openai]",
             ) from exc
 
         from openai import AsyncOpenAI

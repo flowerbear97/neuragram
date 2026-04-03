@@ -25,7 +25,7 @@ Usage::
     from engram.server.api import create_app
     app = create_app(db_path="./memory.db")
 
-Requires: pip install engram-memory[api]
+Requires: pip install neuragram[api]
 """
 
 from __future__ import annotations
@@ -60,7 +60,7 @@ def create_app(
         from pydantic import BaseModel, Field
     except ImportError as exc:
         raise ImportError(
-            "FastAPI not installed. Run: pip install engram-memory[api]"
+            "FastAPI not installed. Run: pip install neuragram[api]"
         ) from exc
 
     from engram.client import AgentMemory
@@ -364,7 +364,7 @@ def main() -> None:
     try:
         import uvicorn
     except ImportError:
-        raise ImportError("uvicorn not installed. Run: pip install engram-memory[api]")
+        raise ImportError("uvicorn not installed. Run: pip install neuragram[api]")
 
     app = create_app(
         db_path=args.db_path,
