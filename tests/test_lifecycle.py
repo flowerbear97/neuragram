@@ -1,10 +1,10 @@
 """Tests for lifecycle management (decay and forgetting)."""
 
 import pytest
-from engram.lifecycle.decay import DecayManager
-from engram.lifecycle.forgetting import ForgettingManager
-from engram.store.sqlite import SQLiteMemoryStore
-from engram.core.models import Memory, MemoryType, MemoryStatus
+from neuragram.lifecycle.decay import DecayManager
+from neuragram.lifecycle.forgetting import ForgettingManager
+from neuragram.store.sqlite import SQLiteMemoryStore
+from neuragram.core.models import Memory, MemoryType, MemoryStatus
 from datetime import datetime, timezone, timedelta
 
 

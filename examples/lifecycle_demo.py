@@ -1,7 +1,7 @@
 """Memory lifecycle: TTL, versioning, and decay."""
 import os
 from datetime import datetime, timedelta, timezone
-from engram import AgentMemory
+from neuragram import AgentMemory
 
 DB_PATH = "./lifecycle.db"
 mem = AgentMemory(db_path=DB_PATH)

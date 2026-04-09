@@ -9,7 +9,7 @@ pip install neuragram
 ```
 
 ```python
-from engram import AgentMemory
+from neuragram import AgentMemory
 
 mem = AgentMemory(db_path="./memory.db")
 mem.remember("用户喜欢简洁的代码解释", user_id="u1", type="preference")
@@ -56,8 +56,8 @@ mem.close()
 
 ### 集成
 - **Claude Code** — 支持通过插件市场或手动 MCP 配置接入 Claude Code
-- **MCP Server** — `engram-mcp` CLI 将 Engram 暴露为 MCP 工具服务器（Claude Desktop、Cursor 等）
-- **REST API** — `engram-api` CLI 启动 FastAPI HTTP 服务，提供 12 个端点
+- **MCP Server** — `neuragram-mcp` CLI 将 Engram 暴露为 MCP 工具服务器（Claude Desktop、Cursor 等）
+- **REST API** — `neuragram-api` CLI 启动 FastAPI HTTP 服务，提供 12 个端点
 - **LangChain** — `EngramMemory` 实现 `BaseMemory`（save_context / load_memory_variables）
 - **LlamaIndex** — `EngramChatMemory` 提供 put / get / get_all / reset
 
@@ -82,7 +82,7 @@ mem = AgentMemory(db_path="./memory.db")
 ### 智能记忆
 
 ```python
-from engram import AgentMemory, CallableLLMProvider
+from neuragram import AgentMemory, CallableLLMProvider
 
 async def my_llm(prompt):
     return await call_my_llm(prompt)
@@ -96,36 +96,36 @@ ids = mem.smart_remember("用户更喜欢 Python 而不是 JavaScript")
 ```bash
 # 方式一：从 Claude Code 插件市场安装
 claude plugin marketplace add flowerbear97/neuragram
-claude plugin install engram
+claude plugin install neuragram
 
 # 方式二：手动 MCP 配置
 pip install neuragram[mcp]
-claude mcp add engram -- engram-mcp --db-path ./memory.db
+claude mcp add neuragram -- neuragram-mcp --db-path ./memory.db
 
 # 方式三：启用 OpenAI 嵌入，获得混合搜索能力
-claude mcp add engram -- engram-mcp --db-path ./memory.db --embedding openai
+claude mcp add neuragram -- neuragram-mcp --db-path ./memory.db --embedding openai
 ```
 
 安装后，Claude Code 自动获得跨会话的持久化记忆能力，包含 6 个工具：
-`engram_remember`、`engram_recall`、`engram_smart_remember`、`engram_forget`、`engram_list`、`engram_stats`。
+`neuragram_remember`、`neuragram_recall`、`neuragram_smart_remember`、`neuragram_forget`、`neuragram_list`、`neuragram_stats`。
 
 ### MCP Server
 
 ```bash
-engram-mcp --db-path ./memory.db
-engram-mcp --db-path ./memory.db --embedding openai
+neuragram-mcp --db-path ./memory.db
+neuragram-mcp --db-path ./memory.db --embedding openai
 ```
 
 ### REST API
 
 ```bash
-engram-api --db-path ./memory.db --port 8080
+neuragram-api --db-path ./memory.db --port 8080
 ```
 
 ### LangChain
 
 ```python
-from engram.integrations.langchain import EngramMemory
+from neuragram.integrations.langchain import EngramMemory
 
 memory = EngramMemory(db_path="./memory.db", user_id="u1")
 memory.save_context({"input": "我喜欢简洁的回答"}, {"output": "好的！"})
@@ -135,7 +135,7 @@ result = memory.load_memory_variables({"input": "回答风格"})
 ### LlamaIndex
 
 ```python
-from engram.integrations.llamaindex import EngramChatMemory
+from neuragram.integrations.llamaindex import EngramChatMemory
 
 memory = EngramChatMemory(db_path="./memory.db", user_id="u1")
 memory.put("用户是 Python 开发者", memory_type="fact")
@@ -153,14 +153,14 @@ for exp in mem.explain("用户偏好", user_id="u1"):
 ### 访问控制
 
 ```python
-from engram import AccessPolicy, AccessLevel
+from neuragram import AccessPolicy, AccessLevel
 
 policy = AccessPolicy(enabled=True, default_level=AccessLevel.NONE)
 policy.grant("reader_agent", AccessLevel.READ)
 policy.grant("writer_agent", AccessLevel.WRITE, namespace="project_a")
 policy.grant("admin_bot", AccessLevel.ADMIN)
 
-mem = AgentMemory(db_path="./memory.db", access_policy=policy)
+mem = AgentMemory(db_path="./memory.db", access_policy=policy, actor_id="writer_agent")
 ```
 
 ### 后台 Worker

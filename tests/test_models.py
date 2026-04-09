@@ -2,7 +2,7 @@
 
 import pytest
 
-from engram.core.models import (
+from neuragram.core.models import (
     Memory,
     MemoryType,
     MemoryStatus,
@@ -10,7 +10,7 @@ from engram.core.models import (
     MemoryUpdate,
     StoreStats,
 )
-from engram.core.filters import MemoryFilter
+from neuragram.core.filters import MemoryFilter
 
 
 def test_memory_default_values():

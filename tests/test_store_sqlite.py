@@ -1,15 +1,17 @@
 """Tests for SQLiteMemoryStore backend."""
 
-import pytest
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 
-from engram.core.models import (
+import pytest
+
+from neuragram.core.exceptions import MemoryNotFoundError, StoreError
+from neuragram.core.filters import MemoryFilter
+from neuragram.core.models import (
     Memory,
-    MemoryType,
     MemoryStatus,
+    MemoryType,
 )
-from engram.core.filters import MemoryFilter
-from engram.core.exceptions import StoreError, MemoryNotFoundError
+from tests.conftest import skip_no_fts5
 
 
 @pytest.mark.asyncio
@@ -155,6 +157,7 @@ async def test_list_memories_by_confidence(mem_store):
     assert memories[0].confidence == 0.9
 
 
+@skip_no_fts5
 @pytest.mark.asyncio
 async def test_keyword_search_match(mem_store):
     """Test FTS5 keyword search matching."""
@@ -167,6 +170,7 @@ async def test_keyword_search_match(mem_store):
     assert "Python" in results[0].memory.content
 
 
+@skip_no_fts5
 @pytest.mark.asyncio
 async def test_keyword_search_no_match(mem_store):
     """Test keyword search with no matches."""
@@ -214,7 +218,7 @@ async def test_touch_updates_access(mem_store):
     """Test that touch updates last_accessed_at and access_count."""
     memory = Memory(content="test")
     memory_id = await mem_store.insert(memory)
-    
+
     original = await mem_store.get(memory_id)
     original_access_time = original.last_accessed_at
     original_count = original.access_count
@@ -224,7 +228,7 @@ async def test_touch_updates_access(mem_store):
     await asyncio.sleep(0.01)
 
     await mem_store.touch(memory_id)
-    
+
     updated = await mem_store.get(memory_id)
     assert updated.access_count == original_count + 1
     assert updated.last_accessed_at > original_access_time
@@ -237,7 +241,7 @@ async def test_delete_soft(mem_store):
     memory_id = await mem_store.insert(memory)
 
     await mem_store.delete(memory_id, hard=False)
-    
+
     retrieved = await mem_store.get(memory_id)
     assert retrieved is not None
     assert retrieved.status == MemoryStatus.DELETED
@@ -250,7 +254,7 @@ async def test_delete_hard(mem_store):
     memory_id = await mem_store.insert(memory)
 
     await mem_store.delete(memory_id, hard=True)
-    
+
     retrieved = await mem_store.get(memory_id)
     assert retrieved is None
 

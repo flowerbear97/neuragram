@@ -56,8 +56,8 @@ dev = [
 all = ["neuragram[local,openai,ollama,mcp,api,langchain,llamaindex,telemetry]"]
 
 [project.scripts]
-engram-mcp = "engram.server.mcp:main"
-engram-api = "engram.server.api:main"
+neuragram-mcp = "neuragram.server.mcp:main"
+neuragram-api = "neuragram.server.api:main"
 
 [project.urls]
 Homepage = "https://github.com/flowerbear97/neuragram"
@@ -66,7 +66,7 @@ Documentation = "https://github.com/flowerbear97/neuragram#readme"
 Issues = "https://github.com/flowerbear97/neuragram/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/engram"]
+packages = ["src/neuragram"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

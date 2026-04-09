@@ -9,7 +9,7 @@ pip install neuragram
 ```
 
 ```python
-from engram import AgentMemory
+from neuragram import AgentMemory
 
 mem = AgentMemory(db_path="./memory.db")
 mem.remember("User prefers concise code explanations", user_id="u1", type="preference")
@@ -56,8 +56,8 @@ mem.close()
 
 ### Integrations
 - **Claude Code** — available as a Claude Code plugin via marketplace or manual MCP setup
-- **MCP Server** — `engram-mcp` CLI exposes Engram as an MCP tool server (Claude Desktop, Cursor, etc.)
-- **REST API** — `engram-api` CLI starts a FastAPI HTTP service with 12 endpoints
+- **MCP Server** — `neuragram-mcp` CLI exposes Engram as an MCP tool server (Claude Desktop, Cursor, etc.)
+- **REST API** — `neuragram-api` CLI starts a FastAPI HTTP service with 12 endpoints
 - **LangChain** — `EngramMemory` implements `BaseMemory` (save_context / load_memory_variables)
 - **LlamaIndex** — `EngramChatMemory` provides put / get / get_all / reset
 
@@ -82,7 +82,7 @@ mem = AgentMemory(db_path="./memory.db")
 ### Smart Remember
 
 ```python
-from engram import AgentMemory, CallableLLMProvider
+from neuragram import AgentMemory, CallableLLMProvider
 
 async def my_llm(prompt):
     return await call_my_llm(prompt)
@@ -96,36 +96,36 @@ ids = mem.smart_remember("User prefers Python over JavaScript")
 ```bash
 # Option 1: Install from Claude Code plugin marketplace
 claude plugin marketplace add flowerbear97/neuragram
-claude plugin install engram
+claude plugin install neuragram
 
 # Option 2: Manual MCP setup
 pip install neuragram[mcp]
-claude mcp add engram -- engram-mcp --db-path ./memory.db
+claude mcp add neuragram -- neuragram-mcp --db-path ./memory.db
 
 # Option 3: With OpenAI embeddings for hybrid search
-claude mcp add engram -- engram-mcp --db-path ./memory.db --embedding openai
+claude mcp add neuragram -- neuragram-mcp --db-path ./memory.db --embedding openai
 ```
 
 Once installed, Claude Code automatically gains persistent memory across sessions with 6 tools:
-`engram_remember`, `engram_recall`, `engram_smart_remember`, `engram_forget`, `engram_list`, `engram_stats`.
+`neuragram_remember`, `neuragram_recall`, `neuragram_smart_remember`, `neuragram_forget`, `neuragram_list`, `neuragram_stats`.
 
 ### MCP Server
 
 ```bash
-engram-mcp --db-path ./memory.db
-engram-mcp --db-path ./memory.db --embedding openai
+neuragram-mcp --db-path ./memory.db
+neuragram-mcp --db-path ./memory.db --embedding openai
 ```
 
 ### REST API
 
 ```bash
-engram-api --db-path ./memory.db --port 8080
+neuragram-api --db-path ./memory.db --port 8080
 ```
 
 ### LangChain
 
 ```python
-from engram.integrations.langchain import EngramMemory
+from neuragram.integrations.langchain import EngramMemory
 
 memory = EngramMemory(db_path="./memory.db", user_id="u1")
 memory.save_context({"input": "I prefer concise answers"}, {"output": "Got it!"})
@@ -135,7 +135,7 @@ result = memory.load_memory_variables({"input": "answer style"})
 ### LlamaIndex
 
 ```python
-from engram.integrations.llamaindex import EngramChatMemory
+from neuragram.integrations.llamaindex import EngramChatMemory
 
 memory = EngramChatMemory(db_path="./memory.db", user_id="u1")
 memory.put("User is a Python developer", memory_type="fact")
@@ -153,14 +153,14 @@ for exp in mem.explain("user preferences", user_id="u1"):
 ### Access Control
 
 ```python
-from engram import AccessPolicy, AccessLevel
+from neuragram import AccessPolicy, AccessLevel
 
 policy = AccessPolicy(enabled=True, default_level=AccessLevel.NONE)
 policy.grant("reader_agent", AccessLevel.READ)
 policy.grant("writer_agent", AccessLevel.WRITE, namespace="project_a")
 policy.grant("admin_bot", AccessLevel.ADMIN)
 
-mem = AgentMemory(db_path="./memory.db", access_policy=policy)
+mem = AgentMemory(db_path="./memory.db", access_policy=policy, actor_id="writer_agent")
 ```
 
 ### Background Worker

@@ -36,8 +36,8 @@ from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, "src")
 
-from engram.client import AgentMemory
-from engram.core.models import MemoryType
+from neuragram.client import AgentMemory
+from neuragram.core.models import MemoryType
 
 
 @dataclass
@@ -367,7 +367,7 @@ async def test_inactivity_archival(mem: AgentMemory) -> TestResult:
     await mem_arch.adecay()
 
     archived_mem = await mem_arch.aget(memory_id)
-    from engram.core.models import MemoryStatus
+    from neuragram.core.models import MemoryStatus
     is_archived = archived_mem is not None and archived_mem.status == MemoryStatus.ARCHIVED
 
     await mem_arch.aclose()

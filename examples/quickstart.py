@@ -1,6 +1,6 @@
 """Engram quickstart — 30 seconds to get started."""
 import os
-from engram import AgentMemory
+from neuragram import AgentMemory
 
 DB_PATH = "./quickstart.db"
 

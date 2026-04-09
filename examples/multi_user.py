@@ -1,6 +1,6 @@
 """Multi-user isolation and GDPR forgetting."""
 import os
-from engram import AgentMemory
+from neuragram import AgentMemory
 
 DB_PATH = "./multi_user.db"
 mem = AgentMemory(db_path=DB_PATH)

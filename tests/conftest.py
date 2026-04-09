@@ -1,10 +1,27 @@
 """Shared pytest fixtures for Engram tests."""
 
+import sqlite3
+
 import pytest
 
-from engram.store.sqlite import SQLiteMemoryStore
-from engram.client import AgentMemory
-from engram.core.models import Memory, MemoryType
+from neuragram.client import AgentMemory
+from neuragram.core.models import Memory, MemoryType
+from neuragram.store.sqlite import SQLiteMemoryStore
+
+
+def _fts5_available() -> bool:
+    """Check whether the current SQLite build includes FTS5."""
+    try:
+        conn = sqlite3.connect(":memory:")
+        conn.execute("CREATE VIRTUAL TABLE _fts5_test USING fts5(x)")
+        conn.close()
+        return True
+    except Exception:
+        return False
+
+
+HAS_FTS5 = _fts5_available()
+skip_no_fts5 = pytest.mark.skipif(not HAS_FTS5, reason="FTS5 not available")
 
 
 @pytest.fixture

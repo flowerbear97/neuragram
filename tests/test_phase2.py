@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import pytest
 
-from engram import (
+from neuragram import (
     AgentMemory,
     CallableLLMProvider,
     ClassificationResult,
@@ -20,7 +20,7 @@ from engram import (
     MergeGroup,
     ResolutionStrategy,
 )
-from engram.processing.embeddings import NullEmbeddingProvider
+from neuragram.processing.embeddings import NullEmbeddingProvider
 
 
 # ── Helpers ─────────────────────────────────────────────────────────
@@ -250,7 +250,7 @@ async def test_classifier_additional_keywords():
 @pytest.fixture
 async def conflict_store(tmp_path):
     """Create a store with some pre-existing memories for conflict testing."""
-    from engram.store.sqlite import SQLiteMemoryStore
+    from neuragram.store.sqlite import SQLiteMemoryStore
 
     store = SQLiteMemoryStore(
         db_path=str(tmp_path / "conflict_test.db"), dimension=0
@@ -309,10 +309,10 @@ async def test_conflict_detection_with_llm(conflict_store):
 @pytest.mark.asyncio
 async def test_conflict_resolution_keep_newest(conflict_store):
     """KEEP_NEWEST resolution soft-deletes old memory."""
-    from engram.processing.conflict import Conflict
+    from neuragram.processing.conflict import Conflict
 
     existing = await conflict_store.list_memories(
-        __import__("engram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
+        __import__("neuragram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
         limit=1,
     )
 
@@ -343,10 +343,10 @@ async def test_conflict_resolution_keep_newest(conflict_store):
 @pytest.mark.asyncio
 async def test_conflict_resolution_keep_oldest(conflict_store):
     """KEEP_OLDEST resolution discards the new memory."""
-    from engram.processing.conflict import Conflict
+    from neuragram.processing.conflict import Conflict
 
     existing = await conflict_store.list_memories(
-        __import__("engram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
+        __import__("neuragram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
         limit=1,
     )
 
@@ -378,10 +378,10 @@ async def test_conflict_resolution_keep_oldest(conflict_store):
 @pytest.mark.asyncio
 async def test_conflict_resolution_flag(conflict_store):
     """FLAG resolution keeps both but marks the new memory."""
-    from engram.processing.conflict import Conflict
+    from neuragram.processing.conflict import Conflict
 
     existing = await conflict_store.list_memories(
-        __import__("engram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
+        __import__("neuragram.core.filters", fromlist=["MemoryFilter"]).MemoryFilter(user_id="u1"),
         limit=1,
     )
 
@@ -416,7 +416,7 @@ async def test_conflict_resolution_flag(conflict_store):
 @pytest.mark.asyncio
 async def test_merge_group_with_llm():
     """MemoryMerger summarizes a group using LLM."""
-    from engram.store.sqlite import SQLiteMemoryStore
+    from neuragram.store.sqlite import SQLiteMemoryStore
     import tempfile
     import os
 
@@ -461,7 +461,7 @@ async def test_merge_group_with_llm():
 @pytest.mark.asyncio
 async def test_merge_group_without_llm_keeps_best():
     """Without LLM, merger keeps the highest-importance memory."""
-    from engram.store.sqlite import SQLiteMemoryStore
+    from neuragram.store.sqlite import SQLiteMemoryStore
     import tempfile
     import os
 
@@ -590,7 +590,7 @@ async def test_process_conversation(smart_memory):
 @pytest.mark.asyncio
 async def test_process_conversation_requires_llm(tmp_path):
     """process_conversation raises error without LLM."""
-    from engram.core.exceptions import EngramError
+    from neuragram.core.exceptions import EngramError
 
     mem = AgentMemory(db_path=str(tmp_path / "no_llm2.db"))
     await mem._ensure_initialized()

@@ -1,14 +1,17 @@
 """Tests for retrieval engine scoring functions."""
 
+from datetime import datetime, timedelta, timezone
+
 import pytest
-from engram.client import AgentMemory
-from engram.core.models import Memory, MemoryType, ScoredMemory
-from engram.retrieval.scoring import (
-    reciprocal_rank_fusion,
+
+from neuragram.client import AgentMemory
+from neuragram.core.models import Memory, MemoryType, ScoredMemory
+from neuragram.retrieval.scoring import (
     apply_recency_boost,
     deduplicate,
+    reciprocal_rank_fusion,
 )
-from datetime import datetime, timezone, timedelta
+from tests.conftest import skip_no_fts5
 
 
 @pytest.mark.asyncio
@@ -221,6 +224,7 @@ async def test_deduplicate_keeps_different():
     assert len(result) == 2
 
 
+@skip_no_fts5
 @pytest.mark.asyncio
 async def test_retrieval_engine_end_to_end(agent_memory: AgentMemory):
     """End-to-end test: remember memories and recall them."""
